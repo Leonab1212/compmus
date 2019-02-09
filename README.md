@@ -1,6 +1,9 @@
 # compmus
 computational musicology 2019 repo
 
+Piece
+Jazz standards like Gershwin’s ‘Summertime’ have been covered by countless artists. Make as complete a list as possible from the Spotify catalogue. How do the covers differ from each other? Is it possible to cluster the covers into groups? How could you interpret those clusters?
+
 
 
 Write a short description (250–500 words) of your corpus and your preliminary findings.
