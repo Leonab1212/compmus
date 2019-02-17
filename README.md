@@ -1,5 +1,5 @@
-# compmus
-computational musicology 2019 repo
+# Computational Musicology 2019
+## Analysing Ornithology
 
 
 I will be analising to the jazz standard ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet ornithology is one among them that is particularly well known for all the different recordings. One reason for this is that the jazz standerd has also been recorded under another name "How high the Moon", which follows the exact same standard, but in a slower tempo. This is immediately one of the aspects for which we could annalize the standard, the tempo of the recording. Yet, not only as "how high the Moon" is the tempo of this standard low, some recordings of How High the Moon are actually faster then some Ornithology recordings. It would be interesting to see how spotify characterizes these differenses, timing among one of them, in the lables  and statistics labled upon the different recordings. 
@@ -10,21 +10,14 @@ As I was expecting beforehand, the tempo also is a field in which there is a lot
 
 
 
---------------------------------------------------------------------------------------------------
+-----------------------------------------homework assignment copied from canvas-----------------------------------------------
 
-Piece
-Jazz standards like Gershwin’s ‘Summertime’ have been covered by countless artists. Make as complete a list as possible from the Spotify catalogue. How do the covers differ from each other? Is it possible to cluster the covers into groups? How could you interpret those clusters?
+Enrich your findings from last week with one or more data visualisations – including tables, if desired – and incorporate these visualisations into your text. Where these visualisations suggest new findings or patterns, discuss them. 
 
-Write a short description (250–500 words) of your corpus and your preliminary findings.
+Focus on the quality of the visualisations rather than quantity. In particular, consider some of Tufte’s classical design principles.
 
-What is the corpus, what does is represent, and how well does it represent that?
+Have you maximised the amount of data displayed in your visualisation, making full use of ggplot tools like colour, fill, faceting, and text labels for outliers?
+Have you reduced extraneous ‘chart junk’ as much as possible, for example, by replacing legends with text labels and making thoughtful choices about the axis limits and labels?
+Does your visualisation have a clear story to tell that invokes curiosity about your research question?
+Submit the URL to your new web page for peer review.
 
-Summarise some of your most interesting first findings with Spotify features.
-
-Which features seem promising for identifying similarities or differences related to your research question? Why? 
-
-Be sure to support your summary with some quantitative results, e.g., As measured by Spotify, the later albums seem to have a much higher valence (M = 0.8, SD = 0.1) than the early albums (M = 0.4, SD = 0.3).
-
-Briefly mention any outliers or extreme values in your corpus and why you think you should include or exclude those outliers in future weeks.
-
-Publish your description online (e.g., as README.md in a Github page) and submit a link to it on Canvas.
