@@ -5,23 +5,27 @@ I will be analysing to the jazz standard Ornithology, first recorded by Charlie 
 One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as ornithology, but is usually in a slower tempo. Because of this tempo is one of the first aspects which come to mind for analysing this standard. Obviously, some Ornithology recordings are going to be slower than some How high the moon recordings. 
 
 ![hist](images/tempo_hist.png)
-This Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology". The data I am using is a playlist containing ±90 How High The Moon recordings, and ±90 Ornithology recordings. 
+This Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology". There are even a couple of How High The Moon recordings, way faster then any other Ornithology recording in my dataset. The data I am using is a playlist containing ±90 How High The Moon recordings, and ±90 Ornithology recordings. 
 
 
 Besides tempo differences, one of the things that I noticed immediately, is that there is a vast difference in popularity ranging from 0 to 41. Which is quite a lot, seeing it is all actually the same song. As a refference for popularity, disneys own popular songs playlist has a popularity range of 13-74, yet in a playlist of 10X top1 disney song, the popularity is pretty much the same.
-I am going to try to find an explanation for this huge popularity range by plotting it against a set of different possible causes. If a perfect correlation is found I would expect to see a graph where 'popularity vs x' gives me an straight diagonal line (y=x). I am not expecting to find such a perfect correlation however, as popularity will most likely be ... from a combination of factors. 
+I am going to try to find an explanation for this huge popularity range by plotting it against a set of different possible causes. If a perfect correlation is found I would expect to see a graph where 'popularity vs x' gives me an straight diagonal line (y=B * x). I am not expecting to find such a perfect correlation however, as popularity will most likely be a combination of factors. 
 
 The first obvious step is to plot popularity against tempo. 
-
 ![hist](images/tempoVpop.png)
 
-As I was expecting beforehand, the tempo also is a field in which there is a lot of difference. The slowest tempo at 73, and the fastest as XXX.
+This graph shows us a couple of interesting things. Most importantly, it shows us that there is a definite sweet spot in tempo, where the recordings are more popular. This occurs for both How High The Moon and Ornithology around 115BPM. At a slower tempo of 80BPM another spike in popularity is seen, telling us that this song is also enjoyed at a slower tempo. Another thing we can easily see from this graph is that the three extremely fast recordings of how High The Moon, already mentioned in below the previous histogram, are definately outliers in my dataset. 
+
+There are many more ways to find some correlation for popularity. In the comming weeks I will be exploring those.
 
 
-These are just a couple of fields where all of these recordings differ in, some recordings are even in a minor key, as apposed to a more usual major key. Interestingly there are two definate outliers in duration of the recording. all recordings lie between 141507ms and 668240ms, yet there is one recording of only 43147ms which is a different order of magnitude, and 4 times slower then the next slowest. The other outlier is a duration of 926333ms, which is 1/3 times longer then the next longest. The median duration is 314720ms. So I do consicer the above mentioned durations as outliers. 
+-------
+notes for me:
+
+Interestingly there are two definate outliers in duration of the recording. all recordings lie between 141507ms and 668240ms, yet there is one recording of only 43147ms which is a different order of magnitude, and 4 times slower then the next slowest. The other outlier is a duration of 926333ms, which is 1/3 times longer then the next longest. The median duration is 314720ms. So I do consicer the above mentioned durations as outliers. 
 
 
-ou can see that the tempo ranges from 73 to XXX. Although those last two tempos seem to be outliers.
+
 
 
 tempo hhtm vs O
