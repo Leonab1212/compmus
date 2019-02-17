@@ -22,74 +22,10 @@ There are many more ways to find some correlation for popularity. In the comming
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--------
+<span style="color:blue">-------
 notes for me:
 
 Interestingly there are two definate outliers in duration of the recording. all recordings lie between 141507ms and 668240ms, yet there is one recording of only 43147ms which is a different order of magnitude, and 4 times slower then the next slowest. The other outlier is a duration of 926333ms, which is 1/3 times longer then the next longest. The median duration is 314720ms. So I do consicer the above mentioned durations as outliers. 
-
-
-
-<span style="color:blue">some *This is Blue italic.* text</span>
 
 
 tempo hhtm vs O
@@ -112,3 +48,4 @@ Have you reduced extraneous ‘chart junk’ as much as possible, for example, b
 Does your visualisation have a clear story to tell that invokes curiosity about your research question?
 Submit the URL to your new web page for peer review.
 
+* text</span>
