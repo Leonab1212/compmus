@@ -5,7 +5,7 @@ I will be analysing to the jazz standard Ornithology, first recorded by Charlie 
 One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as ornithology, but is usually in a slower tempo. Because of this tempo is one of the first aspects which come to mind for analysing this standard. Obviously, some Ornithology recordings are going to be slower than some How high the moon recordings. 
 
 ![hist](images/tempo_hist.png)
-<img src="images/tempo_hist.png" alt="histogram" width="200"/>
+<img src="images/tempo_hist.png" alt="histogram" width="500"/>
 
 The data I am using is playlist containing ±90 How High The Moon recordings, and ±90 Ornithology recordings. This Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology".
 
