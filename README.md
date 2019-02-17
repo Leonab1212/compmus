@@ -10,7 +10,7 @@ The data I am using is playlist containing ±90 How High The Moon recordings, an
 
 
 
-![hist](images/tempVSpop.png)
+![hist](images/tempoPop.png)
 
 tempo hhtm vs O
 
