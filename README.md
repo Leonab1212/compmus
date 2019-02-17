@@ -19,6 +19,69 @@ This graph shows us a couple of interesting things. Most importantly, it shows u
 There are many more ways to find some correlation for popularity. In the comming weeks I will be exploring those.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -------
 notes for me:
 
@@ -26,6 +89,7 @@ Interestingly there are two definate outliers in duration of the recording. all 
 
 
 
+<span style="color:blue">some *This is Blue italic.* text</span>
 
 
 tempo hhtm vs O
