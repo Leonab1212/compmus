@@ -6,7 +6,11 @@ One reason for this is that the jazz standard has also been recorded under anoth
 
 ![hist](images/tempo_hist.png)
 
-the data I am using is ±90 How High The Moon recordings, and ±90 Ornithology recordings. This Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology".
+The data I am using is playlist containing ±90 How High The Moon recordings, and ±90 Ornithology recordings. This Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology".
+
+
+
+![hist](images/tempVSpop.png)
 
 tempo hhtm vs O
 
