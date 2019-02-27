@@ -42,51 +42,16 @@ The data I am using is a playlist containing ±90 How High The Moon recordings, 
 
 ### Visualisation of Tempo in 'Ornithology' and 'How High the moon;
 
+
 ```{r}
-grammy <- get_playlist_audio_features('digster.fm', '4kQovkgBZTd8h2HCM3fF31')
-edison <- get_playlist_audio_features('spotify', '37i9dQZF1DX8mnKbIkppDf')
-awards <-
-    grammy %>% mutate(playlist = "Grammys") %>%
-    bind_rows(edison %>% mutate(playlist = "Edisons"))
-angry <-
-    awards %>%                   # Start with awards.
-    ggplot(                      # Set up the plot.
-        aes(
-            x = valence,
-            y = energy,
-            size = loudness,
-            colour = mode,
-            label = track_name
-        )
-    ) +
-    geom_point(alpha = 0.8) +               # Scatter plot.
-    geom_rug(size = 0.1) +       # Add 'fringes' to show data distribution.
-    facet_wrap(~ playlist) +     # Separate charts per playlist.
-    scale_x_continuous(          # Fine-tune the x axis.
-        limits = c(0, 1),
-        breaks = c(0, 0.50, 1),  # Use grid-lines for quadrants only.
-        minor_breaks = NULL      # Remove 'minor' grid-lines.
-    ) +
-    scale_y_continuous(          # Fine-tune the y axis in the same way.
-        limits = c(0, 1),
-        breaks = c(0, 0.50, 1),
-        minor_breaks = NULL
-    ) +
-    scale_colour_brewer(         # Use the Color Brewer to choose a palette.
-        type = "qual",           # Qualitative set.
-        palette = "Dark2"       # Name of the palette is 'Paired'.
-    ) +
-    scale_size_continuous(       # Fine-tune the sizes of each point.
-        trans = "exp",           # Use an exp transformation to emphasise loud.
-        guide = "none"           # Remove the legend for size.
-    ) +
-    theme_light() +              # Use a simpler theme.
-    labs(                        # Make the titles nice.
-        x = "Valence",
-        y = "Energy",
-        colour = "Mode"
-    )
-ggplotly(angry)
+
+ornithology <- get_playlist_audio_features("1115668083", "3pMfdAOvErb9AEnAO9W2fa")
+hhtm <- ornithology %>% filter(track_name != "Ornithology")
+orni <- ornithology %>% filter(track_name == "Ornithology")
+
+ggplot(ornithology, aes(x=tempo, fill=track_name)) + geom_histogram(position='dodge', binwidth = 15)
+
+
 ```
 
 ***
@@ -98,11 +63,18 @@ The *x* axis shows valence and the *y* axis shows Spotify's ‘energy’ feature
 The visualisation shows that in 2019, the pop music at the Grammys was (according to Spotify) rather angrier and rather louder than the music at the Edisons.
 
 ### different graphs of hhtm and ornithology.
-![hist](images/tempo_hist.png)
+
+```{r}
+ggplot(ornithology, aes(x=tempo, y=track_popularity, color=track_name)) + geom_line(alpha=0.3) + geom_smooth(span=0.4)
+
+
+```
 
 
 ![hist](images/tempVpop.png)
+
 ***
+
 The Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology". There are even a couple of How High The Moon recordings, way faster then any other Ornithology recording in my dataset.
 
 Besides tempo differences, one of the things that I noticed immediately, is that there is a vast difference in popularity ranging from 0 to 41. Which is quite a lot, seeing it is all actually the same song. As a refference for popularity, disneys own popular songs playlist has a popularity range of 13-74, yet in a playlist of 10X top1 disney song, the popularity is pretty much the same.
