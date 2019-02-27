@@ -1,6 +1,6 @@
 ---
 title: "Computational Musicology"
-author: "John Ashley Burgoyne"
+author: "Leon Bartelsman"
 date: "2019"
 output: 
     flexdashboard::flex_dashboard:
@@ -18,41 +18,29 @@ library(spotifyr)
 source('spotify.R')
 ```
 
-### What kind of storyboard do I need to create?
+### Indtroduction
 
-Your portfolio will be a 5–10-page storyboard in the style of the R package [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/using.html#storyboards), using data from the [Spotify API](https://developer.spotify.com). Your storyboard should cover the following topics, but note that it is possible (and often desirable) for a single visualisation or tab to cover more than one topic.
 
-  - **Background**: Which tracks did you choose? Why? What questions will the storyboard answer?
-  - **Track-level features**: What insights into your corpus can be drawn from Spotify’s track-level features (valence, danceability, etc.)?
-  - **Chroma features** [pitch]: What insights into your corpus can be drawn from Spotify’s chroma features?
-  - **Loudness** [volume]: What insights into your corpus can be drawn from Spotify’s ‘loudness’ (power) features, either at the track level or the section level?
-  - **Timbre features** [timbre]: What insights into your corpus can be drawn from Spotify’s timbre features?
-  - **Temporal features** [duration]: What is notable, effective, or ineffective about structural segments, metre, rhythm, or beats in your corpus, as derived from Spotify features?
-  - **Classification/regression**: Where explicit labels in your corpus exist, how strong are Spotify features for classification or regression?
-  - **Clustering**: Where explicit labels in your corpus are lacking, which Spotify features generate potentially meaningful clusters?
-  - **Contribution**: What have you learned from this set of analyses? Who could these conclusions benefit, and how?
 
-Depending on your topic, you may want to start with a text-based opening like this one; alternatively, you could put your most compelling visualisation directly on the first tab and just use the commentary to introduce your corpus and research questions.
 
-This storyboard contains further examples from each week to inspire you. For more detailed code examples from each week, check the [repository page](https://github.com/jaburgoyne/compmus2019) or use the following links for rendered R Markdown files.
+TODO:
 
-- [Week 8](compmus2019-w8.nb.html)
+ADD:
+picture of charlie parker + bird
+  ornithology cover hhtm cover
+
+music clip of both hhtm and orni
 
 
 ***
 
-The grading breakdown for the portfolio is as follows. The rubric was adapted from the Association of American Colleges and Universities (AAC&U) Inquiry and Analysis and Quantitative Literacy [VALUE rubrics](https://www.aacu.org/value-rubrics).
+I will be analysing to the jazz standard Ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet Ornithology is one among them that is particularly well known for all the different recordings. 
+One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as ornithology, but is usually in a slower tempo. Because of this tempo is one of the first aspects which come to mind for analysing this standard. Obviously, some Ornithology recordings are going to be slower than some How high the moon recordings. But in essence, are there real messurable differences between recordings with the name How high the moon and Ornithology or are they really just interchangable. 
+The data I am using is a playlist containing ±90 How High The Moon recordings, and ±90 Ornithology recordings. 
 
-| Component        | Points |
-|------------------|:------:|
-| Corpus selection |      7 |
-| Assumptions      |      7 |
-| Representation   |      7 |
-| Interpretation   |      7 |
-| Analysis         |      7 |
-| Presentation     |      7 |
 
-### The Grammys are angrier than the Edisons [track-level features].
+
+### Visualisation of Tempo in 'Ornithology' and 'How High the moon;
 
 ```{r}
 grammy <- get_playlist_audio_features('digster.fm', '4kQovkgBZTd8h2HCM3fF31')
@@ -109,7 +97,27 @@ The *x* axis shows valence and the *y* axis shows Spotify's ‘energy’ feature
 
 The visualisation shows that in 2019, the pop music at the Grammys was (according to Spotify) rather angrier and rather louder than the music at the Edisons.
 
-### The Tallis Scholars sing Josquin more slowly than La Chapelle Royale -- except for one part [chroma features].
+### different graphs of hhtm and ornithology.
+![hist](images/tempo_hist.png)
+
+
+![hist](images/tempVpop.png)
+***
+The Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology". There are even a couple of How High The Moon recordings, way faster then any other Ornithology recording in my dataset.
+
+Besides tempo differences, one of the things that I noticed immediately, is that there is a vast difference in popularity ranging from 0 to 41. Which is quite a lot, seeing it is all actually the same song. As a refference for popularity, disneys own popular songs playlist has a popularity range of 13-74, yet in a playlist of 10X top1 disney song, the popularity is pretty much the same.
+I am going to try to find an explanation for this huge popularity range by plotting it against a set of different possible causes. If a perfect correlation is found I would expect to see a graph where 'popularity vs x' gives me an straight diagonal line (y=B * x). I am not expecting to find such a perfect correlation however, as popularity will most likely be a combination of factors. 
+
+The first obvious step is to plot popularity against tempo. 
+
+This graph shows us a couple of interesting things. Most importantly, it shows us that there is a definite sweet spot in tempo, where the recordings are more popular. This occurs for both How High The Moon and Ornithology around 115BPM. At a slower tempo of 80BPM another spike in popularity is seen, telling us that this song is also enjoyed at a slower tempo. Another thing we can easily see from this graph is that the three extremely fast recordings of how High The Moon, already mentioned in below the previous histogram, are definately outliers in my dataset. 
+
+There are many more ways to find some correlation for popularity. In the comming weeks I will be exploring those.
+
+
+
+
+### similarity matrix and relation between hhtm and ornithology..
 
 ```{r}
 tallis <- 
