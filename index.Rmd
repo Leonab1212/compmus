@@ -20,53 +20,39 @@ source('spotify.R')
 
 ### Indtroduction
 
+```{r}
+get_tidy_audio_analysis('5S94PIQplSfBHZXsZowyGY')
+get_tidy_audio_analysis('spotify:track:5QN27OeUkJuQX09TEvn48H')
+```
+![](images/CP.png) ![](images/HHTM.png)
 
-Column
---------------------
-![charlie PArker](images/CP.jpg)
-Column
---------------------
-![HHTM](images/HHTM.jpg)
 TODO:
 
 ADD:
 
-picture of charlie parker + bird
-  ornithology cover hhtm cover
 
 music clip of both hhtm and orni
 
 
 ***
 
-I will be analysing to the jazz standard Ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet Ornithology is one among them that is particularly well known for all the different recordings. 
-One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as Ornithology, but is usually in a slower tempo. I want to know if there are any real measurable differences in recordings under the name How High the moon and Ornithology. What makes some musicians name the recording how they do. Are there actually some aspects that differ causing the different name, or is this an arbitrary prefference of the musicians, and are the names really interchangable.
+I will be analysing to the jazz standard Ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet Ornithology is one among them that is particularly well known for all the different recordings. One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as Ornithology, but is usually in a slower tempo. 
 
-In order to get Find out if there are any differences I created a playlist containing ±100 How High The Moon recordings, and ±100 Ornithology recordings. 
+I want to know if there are any real measurable differences in recordings under the name How High the moon and Ornithology. What makes some musicians name the recording how they do. Are there actually some aspects that differ causing the different name, or is this an arbitrary prefference of the musicians, and are the names really interchangable. In order to get Find out if there are any differences I created a playlist containing ±100 How High The Moon recordings, and ±100 Ornithology recordings. 
 
 
 
 ### Visualisation of Tempo in 'Ornithology' and 'How High the moon;
 
 
-Column
---------------------------------------------------
+
 ```{r}
-
 ornithology <- get_playlist_audio_features("1115668083", "3pMfdAOvErb9AEnAO9W2fa")
-hhtm <- ornithology %>% filter(track_name != "Ornithology")
-orni <- ornithology %>% filter(track_name == "Ornithology")
-
 ggplot(ornithology, aes(x=tempo, fill=track_name)) + geom_histogram(position='dodge', binwidth = 15)
 
-
 ```
 
-Column
------------------------------------------------
-```{r}
-ggplot(ornithology, aes(x=tempo, y=track_popularity, color=track_name)) + geom_line(alpha=0.3) + geom_smooth(span=0.4)
-```
+
 
 ***
 
@@ -74,120 +60,82 @@ One of the first distiguishable features might be the tempo. As I stated earlier
 
 On the left you will see a histogram the temp of all the recordings I added to my playlist. As You can see there are acctually no real differences in tempo between the recordings. Most recodings seem to cluster around 120 bpm. Yet my statement might not be completely untrue, as there are, just marginally, more slow HHTM recordings.
 
-### different graphs of hhtm and ornithology.
+### Popularity vs Tempo.
+
 
 ```{r}
-
-
-
+ggplot(ornithology, aes(x=tempo, y=track_popularity, color=track_name)) + geom_line(alpha=0.3) + geom_smooth(span=0.4)
 ```
 
 
 ***
 
-The Histogram shows us that what I previously stated, is not actually validated by my data. It appears that there is little difference at all in tempo between the recordings labled "How High The Moon" and "Ornithology". There are even a couple of How High The Moon recordings, way faster then any other Ornithology recording in my dataset.
+It might be that the dataset I created, happened to only include unusually fast HHTM recordings. To check if this is the case, then the popularity of the faster HHTM tracks must be less then the popularity of the slower recordings of HHTM. Here we see the popularity versus the tempo for both titles. 
 
-Besides tempo differences, one of the things that I noticed immediately, is that there is a vast difference in popularity ranging from 0 to 41. Which is quite a lot, seeing it is all actually the same song. As a refference for popularity, disneys own popular songs playlist has a popularity range of 13-74, yet in a playlist of 10X top1 disney song, the popularity is pretty much the same.
-I am going to try to find an explanation for this huge popularity range by plotting it against a set of different possible causes. If a perfect correlation is found I would expect to see a graph where 'popularity vs x' gives me an straight diagonal line (y=B * x). I am not expecting to find such a perfect correlation however, as popularity will most likely be a combination of factors. 
-
-The first obvious step is to plot popularity against tempo. 
-
-This graph shows us a couple of interesting things. Most importantly, it shows us that there is a definite sweet spot in tempo, where the recordings are more popular. This occurs for both How High The Moon and Ornithology around 115BPM. At a slower tempo of 80BPM another spike in popularity is seen, telling us that this song is also enjoyed at a slower tempo. Another thing we can easily see from this graph is that the three extremely fast recordings of how High The Moon, already mentioned in below the previous histogram, are definately outliers in my dataset. 
-
-There are many more ways to find some correlation for popularity. In the comming weeks I will be exploring those.
-
-
+This graph shows us that my dataset does not consist of outlier recordings of HHTM, as the popularity of all different tempos of HHTM recordings relates well to the same tempo OTHGY recordings. Further more this graph tells us that there is a definite sweet spot in tempo, where the recordings are more popular. This occurs for both How High The Moon and Ornithology around 115BPM. At a slower tempo of 80BPM another spike in popularity is seen, telling us that this song, in both titles, is also enjoyed at a slower tempo. What is interesting to see is that eve though the original recording was titled Ornithology, the How high the Moon recordings seem to be more popular overal. Another thing we can easily see from this graph is that the three extremely fast recordings of how High The Moon are definately outliers in my dataset.
 
 
 ### similarity matrix and relation between hhtm and ornithology..
 
 ```{r}
-tallis <- 
-    get_tidy_audio_analysis('2J3Mmybwue0jyQ0UVMYurH') %>% 
+
+
+
+
+
+otemp <- '6A1mh31895sUIYEpOfeqC3'
+htemp <- '5ldNRCiBHlFlBlvJmDMlCn'
+orni_maxPop <- 
+    get_tidy_audio_analysis('5S94PIQplSfBHZXsZowyGY') %>% 
     select(segments) %>% unnest(segments) %>% 
     select(start, duration, pitches)
-chapelle <- 
-    get_tidy_audio_analysis('4ccw2IcnFt1Jv9LqQCOYDi') %>% 
+hhtm_maxPop <- 
+    get_tidy_audio_analysis('5QN27OeUkJuQX09TEvn48H') %>% 
     select(segments) %>% unnest(segments) %>% 
     select(start, duration, pitches)
-maria_dist <- 
+
+song_dist <- 
     compmus_long_distance(
-    tallis %>% mutate(pitches = map(pitches, compmus_normalise, 'manhattan')),
-    chapelle %>% mutate(pitches = map(pitches, compmus_normalise, 'manhattan')),
+    orni_maxPop %>% mutate(pitches = map(pitches, compmus_normalise, 'manhattan')),
+    hhtm_maxPop %>% mutate(pitches = map(pitches, compmus_normalise, 'manhattan')),
     feature = pitches,
     method = 'aitchison')
 ```
 
 ```{r}
 maria <- 
-    maria_dist %>% 
+    song_dist %>% 
     mutate(
-        tallis = xstart + xduration / 2, 
-        chapelle = ystart + yduration / 2) %>% 
+        orni_maxPop = xstart + xduration / 2, 
+        hhtm_maxPop = ystart + yduration / 2) %>% 
     ggplot(
         aes(
-            x = tallis,
-            y = chapelle,
+            x = orni_maxPop,
+            y = hhtm_maxPop,
             fill = d)) + 
     geom_tile(aes(width = xduration, height = yduration)) +
     coord_fixed() +
     scale_x_continuous(
-        breaks = c(0, 60, 105, 150, 185, 220, 280, 327), 
-        labels = 
-            c(
-                'Ave Maria',
-                'Ave cujus conceptio',
-                'Ave cujus nativitas',
-                'Ave pia humilitas',
-                'Ave vera virginitas',
-                'Ave preclara omnibus',
-                'O Mater Dei',
-                ''),
+
+
         ) +
     scale_y_continuous(
-        breaks = c(0, 45,  80, 120, 145, 185, 240, 287), 
-        labels = 
-            c(
-                'Ave Maria',
-                'Ave cujus conceptio',
-                'Ave cujus nativitas',
-                'Ave pia humilitas',
-                'Ave vera virginitas',
-                'Ave preclara omnibus',
-                'O Mater Dei',
-                ''),
+
+  
         ) +
     scale_fill_viridis_c(option = 'E', guide = "none") +
     theme_classic() + 
     theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-    labs(x = 'The Tallis Scholars', y = 'La Chapelle Royale')
+    labs(x = 'Ornithologys', y = 'How high the moon')
 # ggsave('maria.png', maria, width = 13, height = 8, dpi = 'retina')
 maria
 ```
 
 ***
 
-This visualisation of two performances of the famous ‘Ave Maria’ setting of Josquin des Prez uses the Aitchison distance between chroma features to show how the two performances align with one another. 
+As you can see these recordings dont seem to be very similar pitch wise according to this similarity matrix...
 
-For the first four stanzas, the relationship between the performances is consistent: the Tallis Scholars sing the piece somewhat more slowly than La Chapelle Royale. For the fifth stanza (*Ave vera virginitas*, starting about 3:05 into the Tallis Scholars’ performance and 2:25 into La Chapelle Royale’s), the Tallis Scholars singing faster than La Chapelle Royale, but at the beginning of the sixth stanza (*Ave preclara omnibus*, starting about 3:40 into the the Tallis Scholars’ performance and 3:05 into La Chapelle Royale’s) the Tallis Scholars return to their regular tempo relationship with La Chapelle.
+I have to think about why this is. I also still want to create a couple of other matrices. This one is for maximum popularity orni vs hhtm. I also want to make the same matrix but then with the least popular two titles. That way i can aybe see what structure wise makes them popular (or not). Also, I want to create the same matrices for timbre. 
+Last but not leat I also want to redo all the above, but with self similarity matrices.
 
-Although the interactive mouse-overs from `ggplotly` are very helpful for understanding heat maps, they are very computationally intensive. Chromagrams and similarity matrices are often better as static images, like the visualisation at left.
 
-Static images can sometimes also be useful to add content to your commentary, like the histogram of Aitchison distances below, labelled with the minimum, first quartile, median, third quartile, and maximum values in the data. You must save the images manually, however, and make sure to export them at a good size.
-
-```{r}
-maria_hist <- 
-    maria_dist %>% 
-    ggplot(aes(x = d)) +
-    geom_histogram(binwidth = 0.5) +
-    theme_classic() + 
-    theme(
-        axis.line.y = element_blank(), 
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_blank()) +
-    scale_x_continuous(breaks = c(0.7, 4.4, 5.5, 6.8, 14.2)) +
-    labs(x = 'Aitchison Distance', y = '')
-ggsave("maria_hist.png", maria_hist, width = 3, height = 2, dpi = 'screen')
-```
-
-![](maria_hist.png)
