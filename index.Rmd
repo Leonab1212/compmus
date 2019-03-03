@@ -21,11 +21,16 @@ source('spotify.R')
 ### Indtroduction
 
 
-
-
+Column
+--------------------
+![charlie PArker](images/CP.jpg)
+Column
+--------------------
+![HHTM](images/HHTM.jpg)
 TODO:
 
 ADD:
+
 picture of charlie parker + bird
   ornithology cover hhtm cover
 
