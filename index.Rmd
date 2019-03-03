@@ -35,14 +35,17 @@ music clip of both hhtm and orni
 ***
 
 I will be analysing to the jazz standard Ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet Ornithology is one among them that is particularly well known for all the different recordings. 
-One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as ornithology, but is usually in a slower tempo. Because of this tempo is one of the first aspects which come to mind for analysing this standard. Obviously, some Ornithology recordings are going to be slower than some How high the moon recordings. But in essence, are there real messurable differences between recordings with the name How high the moon and Ornithology or are they really just interchangable. 
-The data I am using is a playlist containing ±90 How High The Moon recordings, and ±90 Ornithology recordings. 
+One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as Ornithology, but is usually in a slower tempo. I want to know if there are any real measurable differences in recordings under the name How High the moon and Ornithology. What makes some musicians name the recording how they do. Are there actually some aspects that differ causing the different name, or is this an arbitrary prefference of the musicians, and are the names really interchangable.
+
+In order to get Find out if there are any differences I created a playlist containing ±100 How High The Moon recordings, and ±100 Ornithology recordings. 
 
 
 
 ### Visualisation of Tempo in 'Ornithology' and 'How High the moon;
 
 
+Column
+--------------------------------------------------
 ```{r}
 
 ornithology <- get_playlist_audio_features("1115668083", "3pMfdAOvErb9AEnAO9W2fa")
@@ -54,24 +57,26 @@ ggplot(ornithology, aes(x=tempo, fill=track_name)) + geom_histogram(position='do
 
 ```
 
+Column
+-----------------------------------------------
+```{r}
+ggplot(ornithology, aes(x=tempo, y=track_popularity, color=track_name)) + geom_line(alpha=0.3) + geom_smooth(span=0.4)
+```
+
 ***
 
-For this visualisation from Week 7, I took playlists of the pop music presented at the Grammy awards (US) and the Edison awards (NL) in 2019. Using `ggplotly`, the visualisation became interactive.
+One of the first distiguishable features might be the tempo. As I stated earlier I believed that How high the Moon (HHTM) recordings usually were recorded in a slower tempo than Ornithology (OTHGY) recordings. However, this is not backed up by my findings.
 
-The *x* axis shows valence and the *y* axis shows Spotify's ‘energy’ feature, which is roughly analogous to the notion of arousal in psychological research on emotion. Under this model, the quadrants of each graph, starting clockwise from the top left, reprsent angry, happy, relaxed, and sad music. The size of each point is proportional to the average volume of the track.
-
-The visualisation shows that in 2019, the pop music at the Grammys was (according to Spotify) rather angrier and rather louder than the music at the Edisons.
+On the left you will see a histogram the temp of all the recordings I added to my playlist. As You can see there are acctually no real differences in tempo between the recordings. Most recodings seem to cluster around 120 bpm. Yet my statement might not be completely untrue, as there are, just marginally, more slow HHTM recordings.
 
 ### different graphs of hhtm and ornithology.
 
 ```{r}
-ggplot(ornithology, aes(x=tempo, y=track_popularity, color=track_name)) + geom_line(alpha=0.3) + geom_smooth(span=0.4)
+
 
 
 ```
 
-
-![hist](images/tempVpop.png)
 
 ***
 
