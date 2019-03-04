@@ -21,8 +21,9 @@ source('spotify.R')
 ### Indtroduction
 
 ```{r}
-get_tidy_audio_analysis('5S94PIQplSfBHZXsZowyGY')
-get_tidy_audio_analysis('spotify:track:5QN27OeUkJuQX09TEvn48H')
+
+play1 <- get_tracks('5S94PIQplSfBHZXsZowyGY')
+play2 <- get_tracks('spotify:track:5QN27OeUkJuQX09TEvn48H')
 ```
 ![](images/CP.png) ![](images/HHTM.png)
 
