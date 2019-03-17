@@ -15,30 +15,19 @@ output:
 library(tidyverse)
 library(plotly)
 library(spotifyr)
+library(compmus)
+
 
 source('spotify.R')
 ```
 
 ### Indtroduction
 
-```{r}
-
-play1 <- get_tracks('5S94PIQplSfBHZXsZowyGY')
-play2 <- get_tracks('spotify:track:5QN27OeUkJuQX09TEvn48H')
-```
 ![](images/CP.png) ![](images/HHTM.png)
-
-TODO:
-
-ADD:
-
-
-music clip of both hhtm and orni
-
 
 ***
 
-I will be analysing to the jazz standard Ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet Ornithology is one among them that is particularly well known for all the different recordings. One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as Ornithology, but is usually in a slower tempo. 
+I will be analysing to the jazz standard Ornithology, first recorded by Charlie Parker. Ornithology is a refference to Parkers nickname "Bird". Jazz standards often differ from one another quite alot, yet Ornithology is one among them that is particularly well known for all the different recordings. One reason for this is that the jazz standard has also been recorded under another name "How high the Moon", which follows the exact same chord progression as Ornithology, but is usually in a slower tempo and follows a somewhat different melody. In essence though both 'titles' are the exact same jazz piece    
 
 I want to know if there are any real measurable differences in recordings under the name How High the moon and Ornithology. What makes some musicians name the recording how they do. Are there actually some aspects that differ causing the different name, or is this an arbitrary prefference of the musicians, and are the names really interchangable. In order to get Find out if there are any differences I created a playlist containing ±100 How High The Moon recordings, and ±100 Ornithology recordings. 
 
@@ -77,16 +66,11 @@ It might be that the dataset I created, happened to only include unusually fast 
 This graph shows us that my dataset does not consist of outlier recordings of HHTM, as the popularity of all different tempos of HHTM recordings relates well to the same tempo OTHGY recordings. Further more this graph tells us that there is a definite sweet spot in tempo, where the recordings are more popular. This occurs for both How High The Moon and Ornithology around 115BPM. At a slower tempo of 80BPM another spike in popularity is seen, telling us that this song, in both titles, is also enjoyed at a slower tempo. What is interesting to see is that eve though the original recording was titled Ornithology, the How high the Moon recordings seem to be more popular overal. Another thing we can easily see from this graph is that the three extremely fast recordings of how High The Moon are definately outliers in my dataset.
 
 
+
+
 ### similarity matrix and relation between most pupular hhtm and ornithology..
 
 ```{r}
-
-
-
-
-
-otemp <- '6A1mh31895sUIYEpOfeqC3'
-htemp <- '5ldNRCiBHlFlBlvJmDMlCn'
 orni_maxPop <- 
     get_tidy_audio_analysis('6A1mh31895sUIYEpOfeqC3') %>% 
     select(segments) %>% unnest(segments) %>% 
@@ -136,62 +120,9 @@ maria
 ***
 As you can see these recordings dont seem to be very similar pitch wise according to this similarity matrix...
 
-What you can see is the diagonal blue line. This shows that even though the rest is quite different from each other, they do share a common theme througout pretty much the whole song. Lucky for us, seeing this is actually the same song. Actually a matrix like this is pretty much what I was expecting to see. In a jazz standard like this, most of the music is imporovised. Orfcouse the main theme reoccurs a couple of times, which in this atrix are the smaller blue lines to the side of the main diagonal one. 
-
-### similarity matrix and relation between least pupular hhtm and ornithology..
-
-```{r}
-orni_leastPop <- 
-    get_tidy_audio_analysis('67w8T3Nc4cKMafCY5d5SM0') %>% 
-    select(segments) %>% unnest(segments) %>% 
-    select(start, duration, pitches)
-hhtm_leastPop <- 
-    get_tidy_audio_analysis('1hMXLfD50drubEvv5xuDO4') %>% 
-    select(segments) %>% unnest(segments) %>% 
-    select(start, duration, pitches)
-
-song_dist <- 
-    compmus_long_distance(
-    orni_leastPop %>% mutate(pitches = map(pitches, compmus_normalise, 'manhattan')),
-    hhtm_leastPop %>% mutate(pitches = map(pitches, compmus_normalise, 'manhattan')),
-    feature = pitches,
-    method = 'aitchison')
-```
-
-```{r}
-maria_2 <- 
-    song_dist %>% 
-    mutate(
-        orni_leastPop = xstart + xduration / 2, 
-        hhtm_leastPop = ystart + yduration / 2) %>% 
-    ggplot(
-        aes(
-            x = orni_leastPop,
-            y = hhtm_leastPop,
-            fill = d)) + 
-    geom_tile(aes(width = xduration, height = yduration)) +
-    coord_fixed() +
-    scale_x_continuous(
+Even though both tracks are in the same key, and folow the same chord scheme there does not seem to be a lot of similarity. An explenation for this is improvisation. Both pieces might be folowing the exact same scheme, but the musicians improvisation appears to make the recordings inheritly different. At least so viewing from a similarity matrix. We can try and view both structures by making selfsimilarity matrices. 
 
 
-        ) +
-    scale_y_continuous(
-
-  
-        ) +
-    scale_fill_viridis_c(option = 'E', guide = "none") +
-    theme_classic() + 
-    theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-    labs(x = 'Ornithologys', y = 'How high the moon')
-# ggsave('maria.png', maria, width = 13, height = 8, dpi = 'retina')
-maria_2
-```
-
-***
-I am not quite sure what it is I am (not) able to read from this matrix. To me this would mean no kind of similar audio whatsowever. I will need to ask for some insights during the next lecture.
-For my peerreviewers, if you happen to be able to see what is going on here, that would be much apreciated. 
-
-One thinng that I could conclude from this, is that the reason for these two recordings beeing least popular might be because of the fact that they have no clear structure and no clear reacurring 'theme'. 
 
 ### Ornithology: self-similarity matrices for pitch and chroma.
 
@@ -231,7 +162,7 @@ ggplotly(bztplot)
 ```
 
 ***
-In these two matrices you can see that there is definately a structure within the complex improvisation. It is not per see any reacurring patterns which make me conclude this - the whole point of improvisation being that you play around with tempo, pitch and timbre - but it is the clear 'new' unplayed parts. The yellow lines mean that from there on a new part of the standard is played. So even though the musician is doing all kinds of complicated improvisation, the structure of the standard is clearly followed.
+In these two matrices you can see that there is definately a structure within the complex improvisation. It is not per see any recurring patterns which make me conclude this - the whole point of improvisation being that you play around with tempo, pitch and timbre - but it is the clear 'new' unplayed parts. The vertical yellow lines (chroma) mean that from there on a new part of the standard is played. So even though the musician is doing all kinds of complicated improvisation, the structure of the standard can be followed. If I am correct, the recordings of high how the moon should show somewhat similar paterns. However, we might see some difference, which might point to why some recordings are names Ornithology, and others How High the moon.
 
 
 ### How high the moon: self-similarity matrices for pitch and chroma.
@@ -272,13 +203,133 @@ ggplotly(bztplot)
 ```
 
 ***
-The pitch matrix does nog give us very conclusive information, other than that there is a vague structure, with a lot of imporovisation. In the timbre matrix we can see the section of the standard where the improvisation occured more clearly. This is the yellow part. So it starts out with a clear(ish) theme, then does a lot of improvisation and ends with the theme again. The second time the theme is played, it is not a complete duplicate of the first time, it does still seem to have some nice improvisational quality to it. A structure like this seems very plausible to me in jazz.  
+In the chroma matrix we can indeed see vertical yellow lines in the same places as in Ornithology. Though it also seems to be that there is less imporovising in this recording (less yellow overall). In the Timbre matrix we see an interesting pattern. It seems like the recordings starts out with a clear(ish) theme, then does a lot of improvisation and ends with the theme again. The second time the theme is played, it is not a complete duplicate of the first time, it does still seem to have some nice improvisational quality to it. A structure like this seems very plausible to me in jazz. This however is not a structure we see in any of the other matrices (chroma and timbre) of this recording and the Ornithology recording. This might actually be one of the crucial differences between the two titles.
+
+### scatter energy valence
+
+```{r}
+ggplot(ornithology, aes(x=valence, y=energy, color=track_name, size=track_popularity)) + geom_point(alpha=0.6)
+```
+
+***
+From the previous similarity matrices, it is hard to make hard conclusions about what makes one recording be named so, and another different. So back to a more basic representation. On the left we see a scatterplot of valencee v energy, size is here the popularity. What we can see from this, is that for a large part, the songs overlap completely. Yet in the left bottom corner, with low energy and low valence we see only How high the moon recordings. Finnaly an aspect in which the titles really do differ. One might also argue that top left, or low valence high energy, is primarily occupied by Ornithology. Yet such an statement is not possible with the dataset we have. You would most likely need a much larger dataset is you would want to back up such a claim.
 
 
-### ORnithology [tonal analysis]
+### Truck-driver modulations in the Year 2525 [tonal analysis]
 
-
+```{r}
+circshift <- function(v, n) {if (n == 0) v else c(tail(v, n), head(v, -n))}
+                                    
+major_key <- 
+    c(6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88)
+minor_key <-
+    c(6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17)
+key_templates <-
+    tribble(
+        ~name    , ~template,
+        'Gb:maj', circshift(major_key,  6),
+        'Bb:min', circshift(minor_key, 10),
+        'Db:maj', circshift(major_key,  1),
+        'F:min' , circshift(minor_key,  5),
+        'Ab:maj', circshift(major_key,  8),
+        'C:min' , circshift(minor_key,  0),
+        'Eb:maj', circshift(major_key,  3),
+        'G:min' , circshift(minor_key,  7),
+        'Bb:maj', circshift(major_key, 10),
+        'D:min' , circshift(minor_key,  2),
+        'F:maj' , circshift(major_key,  5),
+        'A:min' , circshift(minor_key,  9),
+        'C:maj' , circshift(major_key,  0),
+        'E:min' , circshift(minor_key,  4),
+        'G:maj' , circshift(major_key,  7),
+        'B:min' , circshift(minor_key, 11),
+        'D:maj' , circshift(major_key,  2),
+        'F#:min', circshift(minor_key,  6),
+        'A:maj' , circshift(major_key,  9),
+        'C#:min', circshift(minor_key,  1),
+        'E:maj' , circshift(major_key,  4),
+        'G#:min', circshift(minor_key,  8),
+        'B:maj' , circshift(major_key, 11),
+        'D#:min', circshift(minor_key,  3))
+orniKey <- 
+    get_tidy_audio_analysis('6A1mh31895sUIYEpOfeqC3') %>% 
+    compmus_align(sections, segments) %>% 
+    select(sections) %>% unnest(sections) %>% 
+    mutate(
+        pitches = 
+            map(segments, 
+                compmus_summarise, pitches, 
+                method = 'acentre', norm = 'manhattan')) %>% 
+    compmus_match_pitch_template(key_templates, 'aitchison', 'manhattan') %>% 
+    ggplot(
+        aes(x = start + duration / 2, width = duration, y = name, fill = d)) +
+    geom_tile() +
+    scale_fill_viridis_c(option = 'E') +
+    theme_minimal() +
+    labs(x = 'Time (s)', y = '', fill = 'Distance')
+orniKey
+```
 
 ***
     
-I had two nice keygrams for ornithology and how high the moon. after trying to put them together on this card i broke everything. For some F reason I am now not able to get them back at all. And now also my  similarity matrices are not what they were before... I am incredibly frustrated now. My apologies for the tone. 
+keygram for orni
+
+### Truck-driver modulations in the Year 2525 [tonal analysis]
+
+```{r}
+circshift <- function(v, n) {if (n == 0) v else c(tail(v, n), head(v, -n))}
+                                    
+major_key <- 
+    c(6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88)
+minor_key <-
+    c(6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17)
+key_templates <-
+    tribble(
+        ~name    , ~template,
+        'Gb:maj', circshift(major_key,  6),
+        'Bb:min', circshift(minor_key, 10),
+        'Db:maj', circshift(major_key,  1),
+        'F:min' , circshift(minor_key,  5),
+        'Ab:maj', circshift(major_key,  8),
+        'C:min' , circshift(minor_key,  0),
+        'Eb:maj', circshift(major_key,  3),
+        'G:min' , circshift(minor_key,  7),
+        'Bb:maj', circshift(major_key, 10),
+        'D:min' , circshift(minor_key,  2),
+        'F:maj' , circshift(major_key,  5),
+        'A:min' , circshift(minor_key,  9),
+        'C:maj' , circshift(major_key,  0),
+        'E:min' , circshift(minor_key,  4),
+        'G:maj' , circshift(major_key,  7),
+        'B:min' , circshift(minor_key, 11),
+        'D:maj' , circshift(major_key,  2),
+        'F#:min', circshift(minor_key,  6),
+        'A:maj' , circshift(major_key,  9),
+        'C#:min', circshift(minor_key,  1),
+        'E:maj' , circshift(major_key,  4),
+        'G#:min', circshift(minor_key,  8),
+        'B:maj' , circshift(major_key, 11),
+        'D#:min', circshift(minor_key,  3))
+hhtmKey <- 
+    get_tidy_audio_analysis('5ldNRCiBHlFlBlvJmDMlCn') %>% 
+    compmus_align(sections, segments) %>% 
+    select(sections) %>% unnest(sections) %>% 
+    mutate(
+        pitches = 
+            map(segments, 
+                compmus_summarise, pitches, 
+                method = 'acentre', norm = 'manhattan')) %>% 
+    compmus_match_pitch_template(key_templates, 'aitchison', 'manhattan') %>% 
+    ggplot(
+        aes(x = start + duration / 2, width = duration, y = name, fill = d)) +
+    geom_tile() +
+    scale_fill_viridis_c(option = 'E') +
+    theme_minimal() +
+    labs(x = 'Time (s)', y = '', fill = 'Distance')
+hhtmKey
+```
+
+***
+    
+keygram for hhtm
+
