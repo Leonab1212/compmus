@@ -35,9 +35,6 @@ I want to know if there are any real measurable differences in recordings under 
 
 
 ### Visualisation of Tempo in 'Ornithology' and 'How High the moon;
-
-
-
 ```{r}
 ornithology <- get_playlist_audio_features("1115668083", "3pMfdAOvErb9AEnAO9W2fa")
 ggplot(ornithology, aes(x=tempo, fill=track_name)) + geom_histogram(position='dodge', binwidth = 15, alpha=0.7)
@@ -218,9 +215,9 @@ From the previous similarity matrices, it is hard to make hard conclusions about
 Knowing however that there are some differences like that. We can try and see if we can use machine learning to create a classieifer which will identify a title, given a recording. Lets get to it. 
 
 ### classification
-```{}
-orni <- ornithology %>% filter(track_name == 'Ornithology')
-hhtm <- ornithology %>% filter(track_name != 'Ornithology')
+```{r}
+orni <- ornithology %>% filter(track_name == 'Ornithology') %>% add_audio_analysis
+hhtm <- ornithology %>% filter(track_name != 'Ornithology') %>% add_audio_analysis
 standard <- 
     orni %>% mutate(playlist = "Ornithology") %>% 
     bind_rows(
@@ -244,8 +241,8 @@ standard <-
     unnest(pitches, timbre)
 ```
 
-```{}
-indie_class <- 
+```{r}
+standard_class <- 
     recipe(playlist ~
                danceability +
                energy +
@@ -270,11 +267,11 @@ indie_class <-
     juice
 ```
 
-```{}
+```{r}
 standard_cv <- standard_class %>% vfold_cv(5)
 ```
 
-```{}
+```{r}
 standard_knn <- nearest_neighbor(neighbors = 1) %>% set_engine('kknn')
 predict_knn <- function(split)
     fit(standard_knn, playlist ~ ., data = analysis(split)) %>% 
@@ -282,11 +279,11 @@ predict_knn <- function(split)
     bind_cols(assessment(split))
 ```
 
-```{}
+```{r}
 standard_cv %>% 
     mutate(pred = map(splits, predict_knn)) %>% unnest(pred) %>% 
     conf_mat(truth = playlist, estimate = .pred_class) %>% 
-    autoplot(type = 'heatmap')
+    autoplot(type = 'mosaic')
 ```
 
 ***
@@ -341,7 +338,7 @@ orniKey <-
     ggplot(
         aes(x = start + duration / 2, width = duration, y = name, fill = d)) +
     geom_tile() +
-    scale_fill_viridis_c(option = 'E') +
+    scale_fill_viridis_c(option = 'E') + lims(fill = c(0.75, 3.0)) +
     theme_minimal() +
     labs(x = 'Time (s)', y = '', fill = 'Distance')
 orniKey
@@ -402,7 +399,7 @@ hhtmKey <-
     ggplot(
         aes(x = start + duration / 2, width = duration, y = name, fill = d)) +
     geom_tile() +
-    scale_fill_viridis_c(option = 'E') +
+    scale_fill_viridis_c(option = 'E') + lims(fill = c(0.75, 3.0)) +
     theme_minimal() +
     labs(x = 'Time (s)', y = '', fill = 'Distance')
 hhtmKey
@@ -415,6 +412,9 @@ keygram for hhtm
 Here once more the complexity from Jazz is found. By ear, I know this recording to be in D as well. Yet where the previous keygraph only showed D, this one shows - everything. Which might be in line with the fact that the standard modulates to a different key all the time. I would have liked to see this represented more acurately by time, and am not quite sure why we do not see this here.
 
 - further analysis needed
+
+### apendix
+Here is all the information about all the used songs
 
 
 
