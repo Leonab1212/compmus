@@ -411,7 +411,10 @@ standard_cv %>%
 The classification actually performes alot better then I would have expected. You can see that the wrong predictions are much outweighed by the accurate ones. This means that, as we have come to see already, there are some distinguishable features, but that there is also a bit of overlap. 
 
 ### Conclusion
-My very first hypothesis that it was tempo, that dictated the title, was quickly wiped of the table. So what made the recordings distinguishable for the classifier? I think the answer lies in imporovisation. From what we can see from the self simmilarity matrices, the OTHGY recording tends to be a more complicated improvisation all thoughout the recording. HHTM has a clearer structure in the improvisation. Another strong factor for why our classifier is able to distinguish the recordings, is that what we can see in the previous scatterplot of energy vs valence. Combining those two factors I believe would already give us quite a good way to classify what recording goes with what title.  
+My very first hypothesis that it was tempo, that dictated the title, was quickly wiped of the table. So what made the recordings distinguishable for the classifier? 
+I think the answer lies in imporovisation. From what we can see from the self simmilarity matrices, the OTHGY recording tends to be a more complicated improvisation all thoughout the recording. HHTM has a clearer structure in the improvisation. 
+
+Another strong factor for why our classifier is able to distinguish the recordings, is that what we can see in the previous scatterplot of energy vs valence. Combining those two factors I believe would already give us quite a good way to classify what recording goes with what title.  
 
 ***
 .
