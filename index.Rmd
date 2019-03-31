@@ -329,8 +329,11 @@ ggplot(ornithology, aes(x=valence, y=energy, color=track_name, size=track_popula
 
 
 ***
-From the previous similarity matrices, it is hard to make hard conclusions about what makes one recording be named so, and another different. So lets try something a bit different. On the left we see a scatterplot of valence vs energy, ere size represents the popularity. What we can see from this, is that for a large part the songs overlap completely. Yet in the left bottom corner, with low energy and low valence we see only HHTM recordings. Finally an aspect in which the titles really do differ. One might also argue that top left, or low valence high energy, is primarily occupied by Ornithology. Yet such an statement is not possible with the dataset we have. You would most likely need a much larger dataset is you would want to back up such a claim.
-Knowing however that there are some differences like that. We can try and see if we can use machine learning to create a classieifer which will identify a title, given a recording. Lets give it a go.
+From the previous similarity matrices, it is hard to make hard conclusions about what makes one recording be named so, and another different. So lets try something a bit different. On the left we see a scatterplot of valence vs energy, ere size represents the popularity. What we can see from this, is that for a large part the songs overlap completely. Yet in the left bottom corner, with low energy and low valence we see only HHTM recordings. Finally an aspect in which the titles really do differ. One might also argue that top left, or low valence high energy, is primarily occupied by Ornithology. Yet such an statement is not possible with the dataset we have. You would most likely need a much larger dataset is you would want to back up such a claim. Knowing that HHTM tends to have lower valence and energy, it would be understandable to think that there will also be some correlation with the loudness(power) of the tracks. However, this does not seem to be the case. The loudness seems to be quite equal overal.
+
+![](images/loudness.png)
+
+Knowing however that there are some differences, shown in the valence vs energy plot. We can try and see if we can use machine learning to create a classieifer which will identify a title, given a recording. Lets give it a go.
 
 ### classification
 ```{r}
@@ -405,22 +408,23 @@ standard_cv %>%
 ```
 
 ***
-The classification actually performes alot better then I would have expected. You can see that the wrong predictions are much outweighed by the accurate ones. This means that, as we have come to see already, there are some distinguishable features, but that there is also some overlap.  
+The classification actually performes alot better then I would have expected. You can see that the wrong predictions are much outweighed by the accurate ones. This means that, as we have come to see already, there are some distinguishable features, but that there is also a bit of overlap. 
 
 ### Conclusion
-My very first hypothesis that it was tempo, that dictated the title, was quickly seen to be untrue. 
+My very first hypothesis that it was tempo, that dictated the title, was quickly wiped of the table. So what made the recordings distinguishable for the classifier? I think the answer lies in imporovisation. From what we can see from the self simmilarity matrices, the OTHGY recording tends to be a more complicated improvisation all thoughout the recording. HHTM has a clearer structure in the improvisation. Another strong factor for why our classifier is able to distinguish the recordings, is that what we can see in the previous scatterplot of energy vs valence. Combining those two factors I believe would already give us quite a good way to classify what recording goes with what title.  
 
-It seems to be that the main difference in the recordings is that there is more improvisation in recordings titled OTHGY then in recordings titles HHTM. 
+***
+.
 
 ### Apendix
 Here is all the information about all the used songs
 
-playlist:  ornithology <-   get_playlist_audio_features("1115668083","3pMfdAOvErb9AEnAO9W2fa")
+The playlist I created on spotify:  playlist <-   get_playlist_audio_features("1115668083","3pMfdAOvErb9AEnAO9W2fa")
 
-popular OTHGY: orni_maxPop <- 
+Most popular OTHGY track in playlist: orni_maxPop <- 
   get_tidy_audio_analysis('6A1mh31895sUIYEpOfeqC3')
 
-popular HHTM: hhtm_maxPop <- 
+Most popular HHTM track in playlist: hhtm_maxPop <- 
     get_tidy_audio_analysis('5ldNRCiBHlFlBlvJmDMlCn')
 
 
